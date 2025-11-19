@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>বিসমিল্লাহ আচার হাউজ</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@100..900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b1020;
+  --accent:#06d6a0;
+  --muted:#98a0ad;
+  --card-bg:#1a1f2b;
+  --card-radius:14px;
+  --btn-color:#06d6a0;
+  font-family:'Noto Sans Bengali',sans-serif;
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#eaf3ef;
+  transition: background 0.5s ease;
+}
+.wrap{max-width:420px;margin:0 auto;padding:14px 12px 92px;}
+header{
+  text-align:center;
+  margin-bottom:12px;
+  animation: fadeInDown 0.8s ease-out;
+}
+header img.profile-img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:8px;
+  border:3px solid var(--accent);
+  box-shadow: 0 0 15px rgba(6, 214, 160, 0.5);
+  animation: pulse 2s infinite alternate;
+}
+.site-title{
+  font-size:22px;
+  font-weight:800;
+  text-align:center;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+}
+.site-sub{
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+  margin-bottom:16px;
+  line-height: 1.5;
+}
+
+/* কপি বাটন স্টাইল */
+
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
+  transition: transform 0.2s;
+}
+.copy-btn:active {
+  transform: scale(0.9);
+}
+.copy-msg {
+  font-size: 12px;
+  color: #FFD700;
+  margin-left: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.search-box{
+  width:85%;
+  padding:8px 15px;
+  font-size:14px;
+  border-radius:10px;
+  border:2px solid transparent;
+  margin:0 auto 15px;
+  display:block;
+  background:#232a3d;
+  color:#eaf3ef;
+  outline:none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.search-box:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(6, 214, 160, 0.4);
+}
+.search-box::placeholder{
+    color: var(--muted);
+    opacity: 1; 
+    transition: opacity 0.5s ease;
+}
+.search-box.typing-active::placeholder{
+    opacity: 0.6; 
+}
+.blinking-cursor::after {
+  content: '|';
+  margin-left: 3px;
+  color: var(--accent);
+  animation: blink 0.7s infinite step-end;
+  font-weight: bold;
+}
+
+/* বিস্তারিত বাটন স্টাইল */
+.info-btn {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 13px;
+}
+.info-btn:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 15px rgba(6, 214, 160, 0.4);
+}
+
+/* নোটিশের স্টাইল */
+.notice-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.notice-box{
+  text-align:center;
+  background:#1a1f2b;
+  color:var(--accent);
+  padding:10px 15px;
+  border-radius:10px;
+  font-size:14px;
+  max-width:90%;
+  margin: 0 auto;
+  box-shadow:0 4px 10px rgba(0,0,0,0.6);
+  position:relative;
+  animation: fadeInUp 0.5s ease-out;
+}
+.notice-box.hidden {
+    display: none;
+}
+.notice-box .close-btn{
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:#ff6b6b;
+  font-weight:bold;
+  font-size:16px;
+  transition: color 0.2s ease, transform 0.2s ease; 
+  padding-left: 15px; 
+}
+.notice-box .close-btn:hover {
+    color: #ff3333;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* ট্রাস্ট সেকশন স্টাইল */
+.trust-section {
+  background: #232a3d;
+  margin: 0 auto 15px;
+  padding: 15px;
+  border-radius: 12px;
+  max-width: 90%;
+  border: 1px solid rgba(6, 214, 160, 0.2);
+  animation: fadeInUp 0.6s ease-out;
+}
+.trust-section h3 {
+  text-align: center;
+  margin: 0 0 15px 0;
+  color: var(--accent);
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  border-radius: 8px;
+}
+.trust-item i {
+  font-size: 20px;
+  color: #FFD700;
+  margin-bottom: 5px;
+}
+.trust-item span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #eaf3ef;
+}
+
+/* মডাল (পপ-আপ) স্টাইল */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+.modal-content {
+  background: #1a1f2b;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 15px;
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 25px rgba(6, 214, 160, 0.2);
+  overflow: hidden;
+  transform: scale(0.8);
+  animation: popIn 0.3s forwards;
+}
+.modal-header {
+  background: var(--accent);
+  color: #0b1020;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h3 { margin: 0; font-size: 18px; font-weight: 800; }
+.close-modal {
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+}
+.modal-body {
+  padding: 20px;
+  color: #eaf3ef;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.intro-text { text-align: center; margin-bottom: 20px; line-height: 1.6; font-size: 14px;}
+.info-block { margin-bottom: 20px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; }
+.info-block h4 { margin: 0 0 10px; color: #FFD700; display: flex; align-items: center; gap: 8px; font-size: 15px;}
+.info-block ul { margin: 0; padding-left: 20px; }
+.info-block li { margin-bottom: 6px; font-size: 13px; color: var(--muted); }
+.info-block p { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.5; }
+.footer-note {
+  text-align: center;
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 15px;
+  font-size: 13px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin-top:10px;
+}
+.card{
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  padding:10px;
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  box-shadow:0 6px 15px rgba(0,0,0,0.6);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardFadeIn 0.5s ease-out forwards;
+}
+.card:hover{
+  transform: translateY(-10px) scale(1.03);
+  box-shadow:0 18px 30px rgba(6, 214, 160, 0.3);
+}
+.img-box{
+  height:120px;
+  width:100%;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.img-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:0;
+  transition: transform 0.5s ease;
+}
+.card:hover .img-box img{
+  transform: scale(1.1);
+}
+.prod-title{font-weight:700;font-size:15px;margin:4px 0;color:#eaf3ef;text-align:center;min-height:30px;}
+.price-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.price{font-weight:900;color:#FFD700;font-size:16px;}
+.old{color:#888;text-decoration:line-through;font-size:13px;}
+.btn-order{
+  background:var(--btn-color);
+  color:#042;
+  border:none;
+  border-radius:12px;
+  padding:8px 12px;
+  font-weight:800;
+  cursor:pointer;
+  font-size:14px;
+  transition:0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  width:100%;
+  text-align:center;
+  margin-top:auto; 
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+}
+.btn-order::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,0.15);
+  border-radius:12px;
+  transition: transform 0.5s ease;
+  z-index:0;
+  transform: skewX(-30deg);
+}
+.btn-order:hover::before{
+  transform: translateX(200%) skewX(-30deg);
+}
+.btn-order:hover{
+  transform:scale(1.05);
+  box-shadow:0 8px 20px rgba(0,255,200,0.6);
+  color:#000;
+}
+footer{
+  text-align:center;
+  margin-top:30px;
+  padding:20px 0;
+  color:var(--muted);
+  font-size:14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeInUp 0.8s ease-out;
+}
+footer .social-links{margin-bottom:12px;display:flex;justify-content:center;gap:15px;flex-wrap:wrap;}
+footer .social-links a{
+  text-decoration:none;
+  font-weight:700;
+  display: flex;
+  align-items: center;
+  gap: 6px; 
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-width: 110px;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+footer .facebook{background:#3b5998; color:#fff;}
+footer .whatsapp{background:#25D366; color:#fff;}
+footer .instagram{
+  color: #fff;
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+}
+footer .social-links a:hover{
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.7);
+}
+.phone-number {
+  font-weight: 800;
+  font-size: 16px;
+  margin: 10px 0;
+  color: var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+.phone-number i {
+  color: #fff;
+  animation: ring 2s infinite ease-in-out;
+}
+.phone-number:hover {
+  color: #FFD700;
+}
+
+footer .dev-info{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+footer .dev-contact{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--muted); 
+  font-size: 13px;
+}
+footer .dev-contact a{
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.3s ease;
+}
+footer .dev-contact a:hover{
+  color: #06d6a0;
+}
+footer .dev-contact i{
+  color: #25D366; 
+  font-size: 14px;
+}
+
+#loader{
+  display:flex;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.8);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  color:#fff;
+  transition: opacity 0.3s ease;
+}
+.spinner{
+  border:5px solid #fff;
+  border-top:5px solid var(--accent);
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  animation:spin 0.8s linear infinite;
+  margin-bottom:15px;
+}
+@keyframes spin{ 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+@keyframes blink { from, to { opacity: 0; } 50% { opacity: 1; } }
+@keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0% { box-shadow: 0 0 10px rgba(6, 214, 160, 0.5), 0 0 0 0 rgba(6, 214, 160, 0.7); } 100% { box-shadow: 0 0 20px rgba(6, 214, 160, 0.8), 0 0 0 10px rgba(6, 214, 160, 0); } }
+@keyframes cardFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes ring { 0% { transform: rotate(0deg) scale(1); } 10% { transform: rotate(30deg) scale(1.1); } 20% { transform: rotate(-30deg) scale(1.1); } 30% { transform: rotate(30deg) scale(1.1); } 40% { transform: rotate(-30deg) scale(1.1); } 50% { transform: rotate(0deg) scale(1); } }
+@keyframes popIn { to { transform: scale(1); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<img class="profile-img" src="https://i.postimg.cc/w1r714Gy/your-image.jpg" alt="প্রোফাইল" style="width:100px; height:100px; border-radius:50%;">
+  
+  <div class="site-title">
+    <span id="mainTitle">বিসমিল্লাহ আচার হাউজ</span>
+   
+  </div>
+
+  <div class="site-sub">প্রতিটি কামড়ে স্বাদের তুমুল আনন্দ!"
+আচার যা মনে রাখে – স্বাদ যা মুগ্ধ করে!
+টক-মিষ্টি, ঝাল-মজাদার – একেই বলে আসল আচার!🤷
+বিসমিল্লাহ আচার হাউজ: স্বাদের সেরা ঠিকানা!✅
+চেখে দেখুন, একবারেই প্রেমে পড়বেন!😅</div>
+</header>
+
+<input type="text" id="searchBox" class="search-box" placeholder="" onkeyup="searchProducts(this.value)">
+
+<div style="text-align:center; margin-bottom:15px;">
+  <button class="info-btn" onclick="openInfoModal()">
+    <i class="fas fa-info-circle"></i> আমাদের সম্পর্কে বিস্তারিত জানুন
+  </button>
+</div>
+
+<div class="notice-container">
+    <div id="notice1" class="notice-box">
+      সকল অর্ডার লাইভ চ্যাট WhatsApp-এ করা হবে! <span class="close-btn" onclick="hideNotice('notice1')">×</span>
+    </div>
+    <div id="notice2" class="notice-box">
+      📢 নতুন প্রোডাক্ট এসেছে! এখনই অর্ডার করুন।<span class="close-btn" onclick="hideNotice('notice2')"> × </span>
+    </div>
+</div>
+
+<section class="trust-section">
+  <h3><i class="fas fa-check-circle"></i> কেন আমাদের বিশ্বাস করবেন?</h3>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <i class="fas fa-home"></i>
+      <span>১০০% ঘরোয়া তৈরি</span>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-leaf"></i>
+      <span>কোনো কেমিক্যাল নেই</span>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-truck"></i>
+      <span>সারা দেশে ডেলিভারি</span>
+    </div>
+    <div class="trust-item">
+      <i class="fas fa-medal"></i>
+      <span>সেরা মানের মশলা</span>
+    </div>
+  </div>
+</section>
+
+<main>
+<section class="grid" id="productGrid">
+  </section>
+</main>
+
+<footer>
+  <div style="margin-bottom:8px;font-size:13px;color:var(--muted);line-height:1.4;text-align:center;">
+    Flavor in Every Bite! Once you taste our tangy and tasty pickles, you won’t look anywhere else.
+  </div>
+  <div class="social-links">
+    <a class="facebook" href="https://facebook.com/আপনার_ফেসবুক_লিঙ্ক" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a class="whatsapp" href="https://wa.me/8801856215561" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a class="instagram" href="https://instagram.com/আপনার_ইনস্টাগ্রাম_লিঙ্ক" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+  </div>
+  <div class="phone-number">
+    <i class="fas fa-phone-alt"></i>01856215561
+  </div>
+  <div>© 2025 বিসমিল্লাহ আচার হাউজ</div>
+  
+  <div class="dev-info">Developer - Mehdi Hassan Emon</div>
+  
+  <div class="dev-contact">
+    Developer Contact:
+    <a href="https://wa.me/8801870950774?text=হ্যালো%20ডেভলপার,%20বিসমিল্লাহ%20আচার%20হাউজের%20সাইট%20সম্পর্কে%20কথা%20বলতে%20চাই।" target="_blank">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
+</footer>
+</div>
+
+<div id="infoModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>বিসমিল্লাহ আচার হাউজের গল্প</h3>
+      <span class="close-modal" onclick="closeInfoModal()">×</span>
+    </div>
+    <div class="modal-body">
+      <p class="intro-text">আসসালামু আলাইকুম! <br> <strong>বিসমিল্লাহ আচার হাউজে</strong> আপনাকে স্বাগতম। আমরা বিশ্বাস করি খাবার মানেই হতে হবে নিরাপদ এবং সুস্বাদু।</p>
+      
+      <div class="info-block">
+        <h4><i class="fas fa-fire"></i> আমাদের বিশেষত্ব</h4>
+        <ul>
+          <li>আমরা কোনো প্রকার প্রিজারভেটিভ বা কেমিক্যাল ব্যবহার করি না।</li>
+          <li>বাজারের সেরা মানের মশলা এবং ১০০% খাঁটি সরিষার তেল দিয়ে তৈরি।</li>
+          <li>প্রতিটি আচার রোদে শুকিয়ে সনাতন পদ্ধতিতে যত্ন সহকারে বানানো হয়।</li>
+          <li>সম্পূর্ণ হাইজেনিক ও ঘরোয়া পরিবেশ নিশ্চিত করা হয়।</li>
+        </ul>
+      </div>
+
+      <div class="info-block">
+        <h4><i class="fas fa-truck-fast"></i> অর্ডার ও ডেলিভারি</h4>
+        <p>আমরা সারা বাংলাদেশে কুরিয়ারের মাধ্যমে হোম ডেলিভারি দিয়ে থাকি। অর্ডারের ২-৩ দিনের মধ্যে আপনার হাতে পৌঁছে যাবে ইনশাআল্লাহ।</p>
+      </div>
+
+      <div class="footer-note">
+        "একবার স্বাদ নিলে, বারবার নিতে হবে - এটাই আমাদের বিশ্বাস!"
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <div>লোডিং হচ্ছে...</div>
+</div>
+
+<script>
+const loader = document.getElementById('loader');
+loader.style.display = 'flex';
+window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      loader.style.opacity = '0';
+      setTimeout(()=>{
+        loader.style.display = 'none';
+        startTypingAnimation();
+      }, 300); 
+    }, 500);
+});
+
+// --- শব্দ ধরে ধরে টাইপিং অ্যানিমেশন ফাংশন ---
+const searchBox = document.getElementById('searchBox');
+const placeholderText = "প্রোডাক্ট খুঁজুন (ID বা নাম)";
+const words = placeholderText.split(' ');
+let wordIndex = 0;
+let charIndex = 0;
+let currentText = '';
+let typingInterval;
+const wordDelay = 500;
+const charDelay = 100;
+
+function typeWriter() {
+    if (wordIndex < words.length) {
+        const currentWord = words[wordIndex];
+        
+        if (charIndex < currentWord.length) {
+            currentText += currentWord[charIndex];
+            searchBox.setAttribute('placeholder', currentText);
+            searchBox.classList.add('blinking-cursor');
+            charIndex++;
+            typingInterval = setTimeout(typeWriter, charDelay);
+        } else {
+            currentText += (wordIndex < words.length - 1 ? ' ' : '');
+            wordIndex++;
+            charIndex = 0;
+            searchBox.classList.remove('blinking-cursor');
+            typingInterval = setTimeout(typeWriter, wordDelay);
+        }
+    } else {
+        clearInterval(typingInterval);
+        searchBox.classList.add('blinking-cursor');
+    }
+}
+
+function startTypingAnimation() {
+    wordIndex = 0;
+    charIndex = 0;
+    currentText = '';
+    typeWriter();
+}
+// --- শব্দ ধরে ধরে টাইপিং অ্যানিমেশন ফাংশন শেষ ---
+
+
+// প্রোডাক্ট ডেটা (ID সহ)
+const products = [
+  {id:"P001", title:"পাঁচমিশালি টক মিষ্টি ঝাল", price:500, old:630, img:"https://i.postimg.cc/tsXBq4PS/IMG-20251117-WA0003.jpg"},
+  {id:"P002", title:"টক মিষ্টি তেঁতুল", price:500, old:630, img:"https://i.postimg.cc/XBk9m92w/IMG-20251117-WA0004.jpg"},
+  {id:"P003", title:"তেঁতুল টক ঝাল মিষ্টি", price:500, old:630, img:"https://i.postimg.cc/hXfpz3ZR/IMG-20251117-WA0005.jpg"},
+  {id:"P004", title:"আমসত্ত্ব ", price:550, old:680, img:"https://i.postimg.cc/JGdQL5r1/IMG-20251117-WA0006.jpg"},
+  {id:"P005", title:"আঁটি আমসত্ত্ব", price:500, old:630, img:"https://i.postimg.cc/QVfQQJWY/IMG-20251117-WA0007.jpg"},
+  {id:"P006", title:"খোসাশহ কাঁচা আমের মোরব্বা", price:500, old:630, img:"https://i.postimg.cc/nj0D1nMv/IMG-20251117-WA0008.jpg"},
+  {id:"P007", title:"আমের মোরব্বা", price:500, old:630, img:"https://i.postimg.cc/hfH7sy48/IMG-20251117-WA0009.jpg"},
+  {id:"P008", title:"আস্ত বড়ই আচার", price:500, old:630, img:"https://i.postimg.cc/14dgRCFP/IMG-20251117-WA0010.jpg"},
+  {id:"P009", title:"মিস্টি বড়ই", price:500, old:630, img:"https://i.postimg.cc/VrVN6vd2/IMG-20251117-WA0011.jpg"},
+  {id:"P010", title:"বড়ই আচার", price:500, old:630, img:"https://i.postimg.cc/4mzJCBQk/IMG-20251117-WA0012.jpg"},
+  {id:"P011", title:"চালতা আচার", price:500, old:630, img:"https://i.postimg.cc/H8bCgk5c/IMG-20251117-WA0013.jpg"},
+  {id:"P012", title:"টক মিষ্টি জলপাই", price:500, old:630, img:"https://i.postimg.cc/f3knbKX8/IMG-20251117-WA0014.jpg"},
+  {id:"P013", title:"বড়ই আচার", price:500, old:630, img:"https://i.postimg.cc/GTF6fSwQ/IMG-20251117-WA0015.jpg"},
+  {id:"P014", title:"টক মিষ্টি আমের আচার", price:500, old:630, img:"https://i.postimg.cc/Js4STqTB/IMG-20251117-WA0016.jpg"},
+  {id:"P015", title:"মিষ্টি ঝাল চালতার আচার", price:500, old:630, img:"https://i.postimg.cc/MfSF1bMH/IMG-20251117-WA0017.jpg"},
+  {id:"P016", title:"আস্ত আমড়ার আচার", price:500, old:630, img:"https://i.postimg.cc/G45gX1TC/IMG-20251117-WA0018.jpg"},
+  {id:"P017", title:"আমসত্ত্ব ঝাল টক মিষ্টি", price:500, old:630, img:"https://i.postimg.cc/9wbJZ3jj/IMG-20251117-WA0019.jpg"},
+  {id:"P018", title:"আমড়ার আচার ঝাল টক মিষ্টি", price:500, old:630, img:"https://i.postimg.cc/fV1nJdKK/IMG-20251117-WA0020.jpg"},
+  {id:"P019", title:"খেজুরের আচার", price:700, old:830, img:"https://i.postimg.cc/V5zyrmjW/IMG-20251117-WA0021.jpg"},
+  {id:"P020", title:"চেড়িফলের আচার", price:1000, old:1130, img:"https://i.postimg.cc/G8Q5JTk8/IMG-20251117-WA0022.jpg"},
+  {id:"P021", title:"তেঁতুল ললিপপ", price:700, old:830, img:"https://i.postimg.cc/KRVsN2g0/IMG-20251117-WA0023.jpg"},
+  {id:"P022", title:"আলুবোখরা আচার", price:1130, old:1230, img:"https://i.postimg.cc/G9m7n2Pp/IMG-20251117-WA0024.jpg"},
+  {id:"P023", title:"বোম্বায় মরিচের আচার", price:1200, old:1440, img:"https://i.postimg.cc/QFGJCx7Z/IMG-20251117-WA0025.jpg"},
+  {id:"P024", title:"আমলকীর আচার", price:700, old:830, img:"https://i.postimg.cc/7b53NTMz/IMG-20251117-WA0026.jpg"}
+];
+
+// প্রোডাক্ট কার্ড লোড
+const grid = document.getElementById('productGrid');
+products.forEach((p, index)=>{
+  const card = document.createElement('article');
+  card.className='card';
+  card.style.animationDelay = `${0.1 + index * 0.05}s`; 
+  
+  card.innerHTML=`
+    <div class="img-box"><img src="${p.img}" alt="${p.title}"></div>
+    <h4 class="prod-title" title="${p.id} - ${p.title}">${p.title}</h4>
+    <div class="price-row"><div class="price">৳${p.price}</div><div class="old">৳${p.old}</div></div>
+    <button class="btn-order" onclick="orderProduct('${p.id}','${p.title}','৳${p.price}','${p.img}')">অর্ডার করুন</button>
+  `;
+  grid.appendChild(card);
+});
+
+// সার্চ ফাংশন (ID বা নামের ভিত্তিতে)
+function searchProducts(query){
+  query = query.toLowerCase();
+  const cards = document.querySelectorAll('.grid .card');
+  cards.forEach(card=>{
+    const titleElement = card.querySelector('.prod-title');
+    // ID এবং নাম উভয় দিয়ে খোঁজা হবে
+    const idAndTitle = (titleElement.getAttribute('title')).toLowerCase(); 
+    
+    card.style.display = idAndTitle.includes(query) ? 'flex' : 'none';
+  });
+}
+
+// অর্ডার ফাংশন (নাম ছাড়াই শুধু আইডি ও বিবরণ)
+function orderProduct(id, title, price, img){
+    loader.style.display = 'flex';
+    loader.style.opacity = '1';
+
+    setTimeout(()=>{
+        loader.style.opacity = '0';
+        setTimeout(()=>{loader.style.display = 'none';}, 300);
+        
+        const waNumber = '8801856215561';
+        
+        // মেসেজ কাঠামো: নাম ছাড়া শুধু প্রোডাক্টের বিবরণ
+        const message = `আমি এই আচারটি অর্ডার করতে চাই।\n\nপ্রোডাক্ট আইডি: ${id}\nনাম: ${title}\nদাম: ${price}\n\nআমি কি আপনার প্রডাক্ট সম্পর্কে আরও কিছু জানতে পারি?`;
+        
+        window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`,'_blank');
+    },1200);
+}
+
+// নোটিশ বন্ধ করার ফাংশন
+function hideNotice(id) {
+    const notice = document.getElementById(id);
+    if (notice) {
+        notice.classList.add('hidden');
+    }
+}
+
+
+
+// মডাল ওপেন করার ফাংশন
+function openInfoModal() {
+  const modal = document.getElementById('infoModal');
+  modal.style.display = 'flex';
+}
+
+// মডাল বন্ধ করার ফাংশন
+function closeInfoModal() {
+  const modal = document.getElementById('infoModal');
+  modal.style.display = 'none';
+}
+
+// মডালের বাইরে ক্লিক করলে বন্ধ হবে
+window.onclick = function(event) {
+  const modal = document.getElementById('infoModal');
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>
